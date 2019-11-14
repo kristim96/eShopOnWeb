@@ -13,7 +13,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_1
         public void Can_add_selected_item_basket()
         {
             //Arrange
-            var homePage = Browser.NavigateToInitial<HomePage>("https://eshopwebapp9090.azurewebsites.net/");
+            var homePage = Browser.NavigateToInitial<HomePage>("https://eshopwebappdemo-demo.azurewebsites.net/");
 
             //Act
             var result = homePage.AddToBasketByProductId(2);
