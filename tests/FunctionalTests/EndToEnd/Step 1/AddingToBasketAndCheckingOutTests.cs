@@ -4,6 +4,7 @@ using Xunit;
 
 namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_1
 {
+    //new commit
     [Trait("Category","EndToEnd")]
     public class AddingToBasketAndCheckingOutTests : Specs
     {
