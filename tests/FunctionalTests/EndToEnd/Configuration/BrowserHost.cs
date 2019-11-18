@@ -10,9 +10,13 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Configuration
     {
         private IWebDriver _webdriver;
 
+        public string BaseUrl { get; private set; }
+
+
         private BrowserHost(IWebDriver webDriver)
         {
             _webdriver = webDriver;
+            BaseUrl = Environment.GetEnvironmentVariable("URL") ?? "http://localhost:5106/";
             AppDomain.CurrentDomain.DomainUnload += CurrentDomainDomainUnload;
             _webdriver.Manage().Window.Maximize();
         }
@@ -23,9 +27,12 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Configuration
             Dispose();
         }
 
-        public TPage NavigateToInitial<TPage>(string url)
+        public TPage NavigateToInitial<TPage>(string relativeUrl = null)
           where TPage : Page, new()
         {
+
+            var url = string.IsNullOrWhiteSpace(relativeUrl) ? BaseUrl : (BaseUrl + relativeUrl).Replace("//", "/");
+            
             return Page.NavigateToInitial<TPage>(_webdriver, url);
         }
 
@@ -34,7 +41,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Configuration
             var options = new ChromeOptions();
             options.AddArgument("test-type");
 
-            var directory = Environment.GetEnvironmentVariable("ChromeWebDriver") ??  Directory.GetCurrentDirectory(); 
+            var directory = Environment.GetEnvironmentVariable("ChromeWebDriver") ?? Directory.GetCurrentDirectory(); 
 
             return new BrowserHost(new ChromeDriver(directory, options));
         }

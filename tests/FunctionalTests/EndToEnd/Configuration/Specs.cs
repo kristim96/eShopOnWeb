@@ -8,6 +8,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Configuration
     {
         protected BrowserHost Browser { get; private set; }
 
+      
         public Specs(Func<BrowserHost> browserHostFactory)
         {
             Browser = browserHostFactory();

@@ -12,14 +12,14 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd
     public class BrittleTests : IDisposable
     {
         private IWebDriver _browser;
+        private string baseUrl = Environment.GetEnvironmentVariable("URL") ?? "http://localhost:5106/";
 
         public BrittleTests()
         {
             var options = new ChromeOptions();
             options.AddArgument("test-type");
 
-            var directory = Environment.GetEnvironmentVariable("ChromeWebDriver");
-            //var directory = new ChromeDriver(Directory.GetCurrentDirectory(), options); 
+            var directory = Environment.GetEnvironmentVariable("ChromeWebDriver") ?? Directory.GetCurrentDirectory();
 
             _browser = new ChromeDriver(directory, options);
             _browser.Manage().Window.Maximize();
@@ -29,7 +29,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd
         [Fact (Skip = "Ignore")]
         public void LoggedIn_User_Can_buy_a_cup_of_T()
         {
-            _browser.Navigate().GoToUrl("https://eshopwebapp9090.azurewebsites.net/");
+            _browser.Navigate().GoToUrl(baseUrl);
             var type = new SelectElement(_browser.FindElement(By.Id("CatalogModel_TypesFilterApplied")));
             type.SelectByText("Mug");
             _browser.FindElement(By.CssSelector("body > div > section.esh-catalog-filters > div > form > input")).Click();

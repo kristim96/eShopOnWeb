@@ -1,5 +1,6 @@
 ﻿using Microsoft.eShopWeb.FunctionalTests.EndToEnd.Configuration;
 using Microsoft.eShopWeb.FunctionalTests.EndToEnd.Pages;
+using System.Linq;
 using Xunit;
 
 namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_1
@@ -13,7 +14,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_1
         public void Can_add_selected_item_basket()
         {
             //Arrange
-            var homePage = Browser.NavigateToInitial<HomePage>("https://eshopwebappdemo-demo.azurewebsites.net/");
+            var homePage = Browser.NavigateToInitial<HomePage>();
 
             //Act
             var result = homePage.AddToBasketByProductId(2);
@@ -23,6 +24,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_1
             Assert.EndsWith("/Basket", actualPage.Url);
             Assert.Equal("Basket - Microsoft.eShopOnWeb", actualPage.Title);
             Assert.Equal(1, actualPage.NumberOfItems );
+            Assert.Equal(2, actualPage.Items.Single().Id);
         }
 
     }

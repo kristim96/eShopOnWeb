@@ -16,7 +16,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_2
         public void Can_add_selected_item_basket()
         {
             //Arrange
-            var homePage = Browser.NavigateToInitial<HomePage>("https://eshopwebapp9090.azurewebsites.net/");
+            var homePage = Browser.NavigateToInitial<HomePage>();
             var expectedDotNetBlackAndWhiteMug = new BasketItemViewModel { Id = 2, ProductName = ".NET Black & White Mug" };
 
             //Act
