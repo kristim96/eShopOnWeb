@@ -34,8 +34,7 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Configuration
             var options = new ChromeOptions();
             options.AddArgument("test-type");
 
-            //var directory = Environment.GetEnvironmentVariable("ChromeWebDriver");
-            var directory = Directory.GetCurrentDirectory(); 
+            var directory = Environment.GetEnvironmentVariable("ChromeWebDriver") ??  Directory.GetCurrentDirectory(); 
 
             return new BrowserHost(new ChromeDriver(directory, options));
         }
