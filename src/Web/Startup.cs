@@ -207,12 +207,21 @@ namespace Microsoft.eShopWeb.Web
                 app.UseHsts();
             }
 
+            if (Configuration.GetValue<bool>("FunctionalTest"))
+            {
+                app.UseMiddleware<AlwaysAuthenticated>();
+
+            }
+            else
+            {
+                app.UseAuthentication();
+
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
             app.UseCookiePolicy();
-            app.UseAuthentication();
             app.UseAuthorization();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

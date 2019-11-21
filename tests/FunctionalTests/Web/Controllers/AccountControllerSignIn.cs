@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.eShopWeb.Web;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,21 @@ namespace Microsoft.eShopWeb.FunctionalTests.Web.Controllers
     {
         public AccountControllerSignIn(CustomWebApplicationFactory<Startup> factory)
         {
-            Client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            Client = factory
+            .WithWebHostBuilder(builder =>
             {
-                AllowAutoRedirect = false
-            });
+                builder.UseSolutionRelativeContentRoot("Web");
+
+                builder.ConfigureTestServices(services =>
+                {
+                    services.AddMvc().AddApplicationPart(typeof(Startup).Assembly);
+                });
+
+                })
+                .CreateClient(new WebApplicationFactoryClientOptions
+                    {
+                        AllowAutoRedirect = false
+                    });
         }
 
         public HttpClient Client { get; }
