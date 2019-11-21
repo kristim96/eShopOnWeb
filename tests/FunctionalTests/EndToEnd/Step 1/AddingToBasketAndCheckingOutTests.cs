@@ -9,22 +9,23 @@ namespace Microsoft.eShopWeb.FunctionalTests.EndToEnd.Step_1
     public class AddingToBasketAndCheckingOutTests : Specs
     {
         public AddingToBasketAndCheckingOutTests() : base(BrowserHost.Chrome) { }
-        // a comment
         [Fact]
         public void Can_add_selected_item_basket()
         {
             //Arrange
+            const int doNetBlackMugProductId = 2;
             var homePage = Browser.NavigateToInitial<HomePage>();
 
             //Act
-            var result = homePage.AddToBasketByProductId(2);
+            var result = homePage.AddToBasketByProductId(doNetBlackMugProductId);
 
             //Assert
             var actualPage = Assert.IsType<BasketPage>(result);
             Assert.EndsWith("/Basket", actualPage.Url);
             Assert.Equal("Basket - Microsoft.eShopOnWeb", actualPage.Title);
             Assert.Equal(1, actualPage.NumberOfItems );
-            Assert.Equal(2, actualPage.Items.Single().Id);
+            Assert.Equal(doNetBlackMugProductId, actualPage.Items.Single().Id);
+            Assert.Equal(".NET Black & White Mug", actualPage.Items.Single().ProductName);
         }
 
     }

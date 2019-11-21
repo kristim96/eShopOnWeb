@@ -9,9 +9,12 @@ using Microsoft.eShopWeb.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Reflection;
 
+[assembly: WebApplicationFactoryContentRoot("Sub", "/src/web/", "/src/test", "1")]
 namespace Microsoft.eShopWeb.FunctionalTests.Web.Controllers
 {
+    
     public class CustomWebApplicationFactory<TStartup>
     : WebApplicationFactory<Startup>
     {
