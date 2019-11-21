@@ -74,4 +74,5 @@ namespace Microsoft.eShopWeb.Web
                 await _next.Invoke(context);
             }
         }
+    }
 }
